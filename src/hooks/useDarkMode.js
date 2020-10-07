@@ -1,13 +1,16 @@
-import {useState} from "react";
+import {useEffect} from "react";
 import {useLocalStorage} from "./useLocalStorage";
 
-export const useDarkMode = (key, initialValue) => {
-    const [someValue, setSomeValue] = useLocalStorage(key, initialValue);
+export const useDarkMode = () => {
+    const [someValue, setSomeValue] = useLocalStorage("adelaskeyDarkMode2020");
     //custom logic from the parent compoenet index.js here
-    const toggleMode = e => {
-        e.preventDefault();
-        setSomeValue(!someValue);
-      };
+    useEffect(()=>{
+if (someValue === true){
+document.body.classList.add("dark-mode");
+}else{
+  document.body.classList.remove("dark-mode");
+}
+    }, [someValue])
 
-    return [someValue, toggleMode];
+    return [someValue, setSomeValue];
 }
